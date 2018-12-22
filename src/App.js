@@ -3,23 +3,34 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  clicked(event){
+    console.log(event.target);
+
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div id="game">
+        <div id="head">
+          Play Tic Tac Toe vs AI
+        </div>
+        <div id="board" onClick={(e)=>this.clicked(e)}>
+
+          <div className="square"> </div>
+            <div className="square"> </div>
+              <div className="square"> </div>
+                <div className="square"> </div>
+                  <div className="square"> </div>
+                    <div className="square"> </div>
+                      <div className="square"> </div>
+                        <div className="square"> </div>
+                          <div className="square"> </div>
+
+
+
+        </div>
+
+
+
       </div>
     );
   }
