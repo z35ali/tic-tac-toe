@@ -7,11 +7,6 @@ class App extends Component {
     super();
     this.state={
 
-      //X starts
-      turn: 'X',
-
-      //initialize no winner
-      gameEnded: false,
 
       winner: undefined
 
@@ -19,6 +14,13 @@ class App extends Component {
 
     }
     this.gameState={
+
+      //X starts
+      turn: 'X',
+
+      //initialize no winner
+      gameEnded: false,
+
       //initialize board
       board: Array(9).fill(''),
       totalMoves: 0
@@ -28,19 +30,21 @@ class App extends Component {
 
   clicked(event){
 
-  if(this.state.gameEnded!==true){
+  if(this.gameState.gameEnded!==true){
     if(this.gameState.board[event.target.dataset.square] === ''){
-    this.gameState.board[event.target.dataset.square]=this.state.turn;
-    event.target.innerText=this.state.turn;
-    this.setState({
+    this.gameState.board[event.target.dataset.square]=this.gameState.turn;
+    event.target.innerText=this.gameState.turn;
+
 
       //alternate between X and O
-      turn: this.state.turn==='X' ? 'O' : 'X',
+       this.gameState.turn=this.gameState.turn==='X' ? 'O' : 'X';
 
-    })
+
       this.gameState.totalMoves++;
 
 }
+
+
 }
 
 var result= this.checkWinner();
