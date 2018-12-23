@@ -7,16 +7,15 @@ class App extends Component {
     super();
     this.state={
 
-
       winner: undefined
-
-
 
     }
     this.gameState={
 
       //X starts
       turn: 'X',
+
+      gameLocked: false,
 
       //initialize no winner
       gameEnded: false,
@@ -30,7 +29,7 @@ class App extends Component {
 
   clicked(box){
 
-  if(this.gameState.gameEnded!==true){
+  if(this.gameState.gameEnded==true||this.gameState.gameLocked) return;
     if(this.gameState.board[box.dataset.square] === ''){
     this.gameState.board[box.dataset.square]=this.gameState.turn;
     box.innerText=this.gameState.turn;
@@ -42,46 +41,57 @@ class App extends Component {
 
       this.gameState.totalMoves++;
 
-}
+
 
 
 }
 
 var result= this.checkWinner();
-  if(result === 'X'){
-    this.setState({
-      gameEnded: true,
-      winner: 'X',
-        winnerLine: 'Match won by X'
-    });
-    console.log('yup');
-  }else if(result === 'O'){
-    this.setState({
-      gameEnded: true,
-      winner: 'O',
-      winnerLine: 'Match won by O'
+if(result === 'X'){
 
-  });
+    this.gameState.gameEnded= true;
+
+      this.setState({
+      winner: 'X',
+      winnerLine: 'Match won by X'
+
+    });
+
+  console.log('yup');
+}else if(result === 'O'){
+
+  this.gameState.gameEnded= true;
+
+    this.setState({
+    winner: 'O',
+    winnerLine: 'Match won by O'
+
+});
 }else if(result === 'draw'){
-  this.setState({
-    gameEnded: true,
-    winner: 'Draw',
-    winnerLine: 'Match is Drawn'
+
+  this.gameState.gameEnded= true;
+
+    this.setState({
+  winner: 'Draw',
+  winnerLine: 'Match is Drawn'
 
 });
 }
 
 //Computer (O) chooses random cell that is empty
   if(this.gameState.turn === 'O' && !this.gameState.gameEnded){
+    this.gameState.gameLocked=true;
+  setTimeout(()=>{
+    do{
 
-  do{
+      var random = Math.floor(Math.random()*9);
 
-    var random = Math.floor(Math.random()*9);
+    }while(this.gameState.board[random]!= '');
+    this.gameState.gameLocked=false;
+    this.clicked(document.querySelectorAll('.square')[random])
 
-  }while(this.gameState.board[random]!= '');
 
-  this.clicked(document.querySelectorAll('.square')[random])
-
+  },1000)
   }
 
 
@@ -89,19 +99,26 @@ var result= this.checkWinner();
 
   checkWinner(){
 
+
     //set of all possible winning moves
     var moves=[[0,3,6],[1,4,7], [2,5,8], [0,4,8], [2,4,6], [0,1,2], [3,4,5], [6,7,8]];
     var board=this.gameState.board;
     for (let i=0;i<moves.length; i++){
-      if(board[moves[i][0]]===board[moves[i][1]] && board[moves[i][1]] === board[moves[i][2]]){
+      if(board[moves[i][0]]===board[moves[i][1]] && board[moves[i][1]] === board[moves[i][2]])
         return board[moves[i][0]];
-      }
-      if(this.gameState.totalMoves===9){
-        return 'draw';
-      }
-    }
 
+      }
+
+       if(this.gameState.totalMoves===9){
+
+        return 'draw';
+
+
+
+    }
   }
+
+  
 
 
   render() {
