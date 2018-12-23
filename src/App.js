@@ -28,12 +28,12 @@ class App extends Component {
 
   }
 
-  clicked(event){
+  clicked(box){
 
   if(this.gameState.gameEnded!==true){
-    if(this.gameState.board[event.target.dataset.square] === ''){
-    this.gameState.board[event.target.dataset.square]=this.gameState.turn;
-    event.target.innerText=this.gameState.turn;
+    if(this.gameState.board[box.dataset.square] === ''){
+    this.gameState.board[box.dataset.square]=this.gameState.turn;
+    box.innerText=this.gameState.turn;
 
 
       //alternate between X and O
@@ -71,6 +71,18 @@ var result= this.checkWinner();
 });
 }
 
+//Computer (O) chooses random cell that is empty
+  if(this.gameState.turn === 'O' && !this.gameState.gameEnded){
+
+  do{
+
+    var random = Math.floor(Math.random()*9);
+
+  }while(this.gameState.board[random]!= '');
+
+  this.clicked(document.querySelectorAll('.square')[random])
+
+  }
 
 
   }
@@ -98,7 +110,7 @@ var result= this.checkWinner();
       <div id="status">{this.state.winnerLine}</div>
         <div id="head">Play Tic Tac Toe vs AI
         </div>
-        <div id="board" onClick={(e)=>this.clicked(e)}>
+        <div id="board" onClick={(e)=>this.clicked(e.target)}>
           <div className="square" data-square="0"> </div>
           <div className="square" data-square="1"> </div>
           <div className="square" data-square="2"> </div>
