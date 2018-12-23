@@ -18,6 +18,14 @@
     padding-right: 50px;
     margin-top: 20px;
 }
+
+#refresh{
+    margin-top: 20px;
+    margin-right: 45px;
+      justify-content: center;
+}
+
+
 .square{
   width: 100px;
   height: 100px;
@@ -43,7 +51,7 @@
 
 #head{
   font-size: 24px;
-  padding: 15px;
+  margin: 15px;
   padding-right: 50px;
 
 

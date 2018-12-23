@@ -9,6 +9,7 @@ class App extends Component {
 
       winner: undefined,
       color: Array(9).fill(''),
+      ai: false
 
     }
     this.gameState={
@@ -28,6 +29,31 @@ class App extends Component {
 
   }
 
+  refresh(){
+    this.setState({
+
+      winner: undefined,
+      color: Array(9).fill(''),
+      winnerLine: ''
+
+    });
+
+
+      //X starts
+      this.gameState.turn= 'X';
+
+      this.gameState.gameLocked=false;
+
+      //initialize no winner
+      this.gameState.gameEnded= false;
+
+      //initialize board
+      this.gameState.board = Array(9).fill('');
+
+      this.gameState.totalMoves=0;
+      console.log(this.gameState.board);
+    }
+
   clicked(box){
 
   if(this.gameState.gameEnded==true||this.gameState.gameLocked) return;
@@ -39,13 +65,13 @@ class App extends Component {
 
       this.state.color[box.dataset.square]='blue';
 
-      box.innerText=this.gameState.turn;
+      this.gameState.board[box.dataset.square]=this.gameState.turn;
       this.forceUpdate()
 
       }else{
         this.state.color[box.dataset.square]='red';
 
-        box.innerText=this.gameState.turn;
+        this.gameState.board[box.dataset.square]=this.gameState.turn;
         this.forceUpdate()
       }
 
@@ -93,6 +119,7 @@ if(result === 'X'){
 });
 }
 
+
 //Computer (O) chooses random cell that is empty
   if(this.gameState.turn === 'O' && !this.gameState.gameEnded){
     this.gameState.gameLocked=true;
@@ -133,19 +160,21 @@ if(result === 'X'){
   render() {
     return (
       <div id="game">
+        <button id="refresh" onClick={(e)=>this.refresh()}>Restart Game</button>
       <div id="status">{this.state.winnerLine}</div>
+
         <div id="head">Play Tic Tac Toe vs AI
         </div>
         <div id="board" onClick={(e)=>this.clicked(e.target)}>
-          <div className="square" data-square="0" style={{color: this.state.color[0]}}> </div>
-          <div className="square" data-square="1" style={{color: this.state.color[1]}}> </div>
-          <div className="square" data-square="2" style={{color: this.state.color[2]}}> </div>
-          <div className="square" data-square="3" style={{color: this.state.color[3]}}> </div>
-          <div className="square" data-square="4" style={{color: this.state.color[4]}}> </div>
-          <div className="square" data-square="5" style={{color: this.state.color[5]}}> </div>
-          <div className="square" data-square="6" style={{color: this.state.color[6]}}> </div>
-          <div className="square" data-square="7" style={{color: this.state.color[7]}}> </div>
-          <div className="square" data-square="8" style={{color: this.state.color[8]}}> </div>
+          <div className="square" data-square="0" style={{color: this.state.color[0]}}>{this.gameState.board[0]} </div>
+          <div className="square" data-square="1" style={{color: this.state.color[1]}}>{this.gameState.board[1]} </div>
+          <div className="square" data-square="2" style={{color: this.state.color[2]}}>{this.gameState.board[2]} </div>
+          <div className="square" data-square="3" style={{color: this.state.color[3]}}>{this.gameState.board[3]} </div>
+          <div className="square" data-square="4" style={{color: this.state.color[4]}}>{this.gameState.board[4]} </div>
+          <div className="square" data-square="5" style={{color: this.state.color[5]}}>{this.gameState.board[5]} </div>
+          <div className="square" data-square="6" style={{color: this.state.color[6]}}>{this.gameState.board[6]} </div>
+          <div className="square" data-square="7" style={{color: this.state.color[7]}}>{this.gameState.board[7]} </div>
+          <div className="square" data-square="8" style={{color: this.state.color[8]}}>{this.gameState.board[8]} </div>
 
 
 
