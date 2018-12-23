@@ -7,7 +7,8 @@ class App extends Component {
     super();
     this.state={
 
-      winner: undefined
+      winner: undefined,
+      color: Array(9).fill(''),
 
     }
     this.gameState={
@@ -32,7 +33,22 @@ class App extends Component {
   if(this.gameState.gameEnded==true||this.gameState.gameLocked) return;
     if(this.gameState.board[box.dataset.square] === ''){
     this.gameState.board[box.dataset.square]=this.gameState.turn;
-    box.innerText=this.gameState.turn;
+
+
+      if(this.gameState.turn==='X'){
+
+      this.state.color[box.dataset.square]='blue';
+
+      box.innerText=this.gameState.turn;
+      this.forceUpdate()
+
+      }else{
+        this.state.color[box.dataset.square]='red';
+
+        box.innerText=this.gameState.turn;
+        this.forceUpdate()
+      }
+
 
 
       //alternate between X and O
@@ -57,7 +73,6 @@ if(result === 'X'){
 
     });
 
-  console.log('yup');
 }else if(result === 'O'){
 
   this.gameState.gameEnded= true;
@@ -112,14 +127,8 @@ if(result === 'X'){
        if(this.gameState.totalMoves===9){
 
         return 'draw';
-
-
-
     }
   }
-
-  
-
 
   render() {
     return (
@@ -128,15 +137,15 @@ if(result === 'X'){
         <div id="head">Play Tic Tac Toe vs AI
         </div>
         <div id="board" onClick={(e)=>this.clicked(e.target)}>
-          <div className="square" data-square="0"> </div>
-          <div className="square" data-square="1"> </div>
-          <div className="square" data-square="2"> </div>
-          <div className="square" data-square="3"> </div>
-          <div className="square" data-square="4"> </div>
-          <div className="square" data-square="5"> </div>
-          <div className="square" data-square="6"> </div>
-          <div className="square" data-square="7"> </div>
-          <div className="square" data-square="8"> </div>
+          <div className="square" data-square="0" style={{color: this.state.color[0]}}> </div>
+          <div className="square" data-square="1" style={{color: this.state.color[1]}}> </div>
+          <div className="square" data-square="2" style={{color: this.state.color[2]}}> </div>
+          <div className="square" data-square="3" style={{color: this.state.color[3]}}> </div>
+          <div className="square" data-square="4" style={{color: this.state.color[4]}}> </div>
+          <div className="square" data-square="5" style={{color: this.state.color[5]}}> </div>
+          <div className="square" data-square="6" style={{color: this.state.color[6]}}> </div>
+          <div className="square" data-square="7" style={{color: this.state.color[7]}}> </div>
+          <div className="square" data-square="8" style={{color: this.state.color[8]}}> </div>
 
 
 
