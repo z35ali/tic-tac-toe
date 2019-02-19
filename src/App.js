@@ -56,7 +56,7 @@ class App extends Component {
 
   clicked(box){
 
-  if(this.gameState.gameEnded==true||this.gameState.gameLocked) return;
+  if(this.gameState.gameEnded===true||this.gameState.gameLocked) return;
     if(this.gameState.board[box.dataset.square] === ''){
     this.gameState.board[box.dataset.square]=this.gameState.turn;
 
@@ -128,7 +128,7 @@ if(result === 'X'){
 
       var random = Math.floor(Math.random()*9);
 
-    }while(this.gameState.board[random]!= '');
+    }while(this.gameState.board[random]!== '');
     this.gameState.gameLocked=false;
     this.clicked(document.querySelectorAll('.square')[random])
 
